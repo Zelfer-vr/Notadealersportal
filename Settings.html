@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study.com | Settings</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="idk.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="idk.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="idk.png">
+  <link rel="shortcut icon" href="idk.png">
+
+  <!-- Theme stylesheet -->
+  <link id="theme-link" rel="stylesheet" href="DStyles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>Notadealer's Portal</h1>
+    <nav>
+      <a href="Index.html">Home</a>
+      <a href="Games.html">Games</a>
+      <a href="Proxy.html">Proxy</a>
+      <a href="Settings.html">Settings</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+<main style="padding: 2rem;">
+  <!-- Outer container as "Settings button" -->
+  <div class="settings-panel">
+  <h2>Settings</h2>
+  
+  <!-- Inner container as "Themes button" panel -->
+  <div class="theme-panel">
+    <p>Select a theme:</p>
+    <button class="theme-btn" data-theme="DStyles.css">Void (Default)</button>
+    <button class="theme-btn" data-theme="Wstyles.css">Light</button>
+  </div>
+</div>
+</main>
+
+  <!-- Theme switching script -->
+  <script>
+    const themeLink = document.getElementById('theme-link');
+
+    // Apply saved theme on load
+    const savedTheme = localStorage.getItem('selectedTheme');
+    if (savedTheme) {
+      themeLink.href = savedTheme;
+    }
+
+    // Theme buttons
+    const buttons = document.querySelectorAll('.theme-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const theme = btn.dataset.theme;
+        themeLink.href = theme;
+        localStorage.setItem('selectedTheme', theme);
+      });
+    });
+  </script>
+  <div id="lock-screen">
+    <img src="Cloak.png" alt="Password Screen" id="password-img">
+  </div>
+  <script>
+  //Lockscreen
+const lockScreen = document.getElementById("lock-screen");
+let keysPressed = {};
+
+// Check if the user has unlocked this session
+if (!sessionStorage.getItem("unlocked")) {
+  lockScreen.style.display = "flex"; // show lock screen
+} else {
+  lockScreen.style.display = "none"; // already unlocked this session
+}
+
+// Unlock combo: c1dp
+document.addEventListener("keydown", (event) => {
+  keysPressed[event.key.toLowerCase()] = true;
+
+  if (keysPressed["c"] && keysPressed["1"] && keysPressed["d"] && keysPressed["p"]) {
+    lockScreen.classList.add("fade-out");
+    setTimeout(() => {
+      lockScreen.style.display = "none";
+      sessionStorage.setItem("unlocked", "true"); // mark session as unlocked
+    }, 1000);
+  }
+});
+
+document.addEventListener("keyup", (event) => {
+  keysPressed[event.key.toLowerCase()] = false;
+});
+</script>
+</body>
+</html>
